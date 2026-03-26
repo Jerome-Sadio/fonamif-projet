@@ -1,0 +1,25 @@
+com\fonamif\attendance\config\ApplicationConfig.java:import org.springframework.security.authentication.AuthenticationManager;
+com\fonamif\attendance\config\ApplicationConfig.java:    public AuthenticationManager authenticationManager(AuthenticationConfiguration config) throws Exception {
+com\fonamif\attendance\config\ApplicationConfig.java:        return config.getAuthenticationManager();
+com\fonamif\attendance\service\AuthenticationService.java:import org.springframework.security.authentication.AuthenticationManager;
+com\fonamif\attendance\service\AuthenticationService.java:    private final AuthenticationManager authenticationManager;
+com\fonamif\attendance\service\AuthenticationService.java:        authenticationManager.authenticate(
+com\fonamif\backend\controller\AuthController.java:import org.springframework.security.authentication.AuthenticationManager;
+com\fonamif\backend\controller\AuthController.java:    AuthenticationManager authenticationManager;
+com\fonamif\backend\controller\AuthController.java:        Authentication authentication = authenticationManager.authenticate(
+com\fonamif\backend\controller\DashboardController.java:    @GetMapping("/manager")
+com\fonamif\backend\controller\DashboardController.java:    @PreAuthorize("hasRole('MANAGER') or hasRole('ADMIN')")
+com\fonamif\backend\controller\DashboardController.java:    public DashboardStats getManagerStats() {
+com\fonamif\backend\controller\DashboardController.java:        // In real app, filter by manager's department
+com\fonamif\backend\controller\TestController.java:    @PreAuthorize("hasRole('AGENT') or hasRole('MANAGER') or hasRole('ADMIN')")
+com\fonamif\backend\model\Department.java:    private String managerName;
+com\fonamif\backend\model\Department.java:    public Department(Long id, String name, String managerName) {
+com\fonamif\backend\model\Department.java:        this.managerName = managerName;
+com\fonamif\backend\model\Department.java:    public String getManagerName() {
+com\fonamif\backend\model\Department.java:        return managerName;
+com\fonamif\backend\model\Department.java:    public void setManagerName(String managerName) {
+com\fonamif\backend\model\Department.java:        this.managerName = managerName;
+com\fonamif\backend\payload\request\SignupRequest.java:    private String role; // admin, manager, agent
+com\fonamif\backend\security\WebSecurityConfig.java:import org.springframework.security.authentication.AuthenticationManager;
+com\fonamif\backend\security\WebSecurityConfig.java:    public AuthenticationManager authenticationManager(AuthenticationConfiguration authConfig) throws Exception {
+com\fonamif\backend\security\WebSecurityConfig.java:        return authConfig.getAuthenticationManager();
