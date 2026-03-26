@@ -3,6 +3,7 @@ package com.fonamif.backend;
 import com.fonamif.backend.model.Department;
 import com.fonamif.backend.model.Role;
 import com.fonamif.backend.model.User;
+import com.fonamif.backend.repository.AttendanceRecordRepository;
 import com.fonamif.backend.repository.DepartmentRepository;
 import com.fonamif.backend.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,11 +21,27 @@ public class DataInitializer implements CommandLineRunner {
     private UserRepository userRepository;
 
     @Autowired
+    private AttendanceRecordRepository attendanceRecordRepository;
+
+    @Autowired
     private PasswordEncoder passwordEncoder;
 
     @Override
     public void run(String... args) throws Exception {
-        // Clear all existing data if somehow create-drop didn't or for cleanliness
+        // Only initialize if the database is empty
+        if (userRepository.count() > 0) {
+            System.out.println("============================================");
+            System.out.println("  Database already has users. Skipping reset.");
+            System.out.println("============================================");
+            return;
+        }
+
+        System.out.println("============================================");
+        System.out.println("  Initializing Default Data...");
+        System.out.println("============================================");
+
+        // Clear all existing data in correct order if needed (though count check above prevents this)
+        attendanceRecordRepository.deleteAll();
         userRepository.deleteAll();
         departmentRepository.deleteAll();
 
@@ -33,10 +50,6 @@ public class DataInitializer implements CommandLineRunner {
         dgDept.setName("Direction Générale");
         dgDept.setCode("DG");
         dgDept = departmentRepository.save(dgDept);
-
-        // ============================================================
-        // Requested Users
-        // ============================================================
 
         // 1. Admin
         createUser("admin", "admin123", "Administrateur", Role.ADMIN, dgDept);
@@ -51,7 +64,7 @@ public class DataInitializer implements CommandLineRunner {
         createUser("agent", "agent123", "Agent Test", Role.AGENT, dgDept);
 
         System.out.println("============================================");
-        System.out.println("  FONAMIF Database Reset & Initialized!");
+        System.out.println("  FONAMIF Database Initialized!");
         System.out.println("  Users created: admin, garde, directeur, agent");
         System.out.println("============================================");
     }
