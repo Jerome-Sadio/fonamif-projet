@@ -1,5 +1,5 @@
-# Utiliser Maven pour compiler le projet
-FROM maven:3.8.4-openjdk-17-slim AS build
+# Utiliser Maven avec Eclipse Temurin pour compiler le projet
+FROM maven:3.9.6-eclipse-temurin-17-alpine AS build
 WORKDIR /app
 
 # Copier le fichier pom.xml et les sources
@@ -9,14 +9,14 @@ COPY src ./src
 # Compiler le projet en sautant les tests
 RUN mvn clean package -DskipTests
 
-# Utiliser une image OpenJDK légère pour l'exécution
-FROM openjdk:17-jdk-slim
+# Utiliser l'image JRE d'Eclipse Temurin pour l'exécution
+FROM eclipse-temurin:17-jre-alpine
 WORKDIR /app
 
 # Copier le fichier jar généré depuis l'étape précédente
 COPY --from=build /app/target/attendance-system-0.0.1-SNAPSHOT.jar app.jar
 
-# Exposer le port de l'application (Spring Boot utilise 8080 par défaut)
+# Exposer le port de l'application
 EXPOSE 8080
 
 # Commande de démarrage

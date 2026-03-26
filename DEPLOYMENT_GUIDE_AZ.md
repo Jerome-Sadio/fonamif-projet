@@ -4,8 +4,7 @@ Ce guide détaille chaque étape pour mettre votre projet en ligne.
 
 ---
 
-## Étape 1 à 4 : (Déjà faites ?)
-*Si vous avez poussé sur GitHub et lié Netlify, passez à l'étape 5.*
+## Étape 1 à 4 : (Déjà faites)
 
 ---
 
@@ -24,12 +23,13 @@ Le "Backend" est le moteur de votre application. Sans lui, le bouton "Se connect
    - Sélectionnez votre dépôt `fonamif-projet`.
    - **Configuration** :
      - **Name** : `fonamif-backend`
-     - **Root Directory** : `backend`  <-- TRÈS IMPORTANT
-     - **Runtime** : **Docker**  <-- (Sélectionnez "Docker" à la place de Java)
+     - **Root Directory** : `backend`
+     - **Runtime** : **Docker**
+     - **Dockerfile Path** : `Dockerfile`  <-- (Écrivez ceci si demandé)
 4. **Ajoutez les Variables d'Environnement (Les réglages)** :
    - Cliquez sur l'onglet **"Environment"** dans votre service `fonamif-backend`.
    - Cliquez sur **"Add Environment Variable"** :
-     - **Key** : `SPRING_DATASOURCE_URL` / **Value** : (Collez l'URL que vous avez copiée à l'étape 2.2)
+     - **Key** : `SPRING_DATASOURCE_URL` / **Value** : (L'URL de votre DB copiée à l'étape 2)
      - **Key** : `SPRING_DATASOURCE_USERNAME` / **Value** : (Disponible dans les infos de votre DB sur Render)
      - **Key** : `SPRING_DATASOURCE_PASSWORD` / **Value** : (Disponible dans les infos de votre DB sur Render)
      - **Key** : `BEZCODER_APP_JWTSECRET` / **Value** : `UnePhraseSecreteTresLongueEtAleatoire`
@@ -45,11 +45,5 @@ Maintenant, vous devez dire à Netlify où se trouve votre moteur (Render).
 2. Cliquez sur votre site, puis sur **Site configuration** > **Environment variables**.
 3. Cliquez sur **"Add a variable"** > **"Add single variable"**.
    - **Key** : `VITE_API_URL`
-   - **Value** : `https://fonamif-backend.onrender.com/api`  <-- (Mettez votre adresse Render suivie de `/api`)
-4. Cliquez sur **Save**.
-5. **Dernière étape** : Pour que Netlify prenne en compte ce changement, allez dans l'onglet **"Deploys"** et cliquez sur le bouton **"Trigger deploy"** > **"Clear cache and deploy site"**.
-
----
-
-## C'EST FINI !
-Votre application est maintenant en ligne. Si vous allez sur l'adresse fournie par Netlify, vous devriez pouvoir vous connecter.
+   - **Value** : `https://fonamif-backend.onrender.com/api`
+4. Re-déployez le site Netlify pour prendre en compte le changement.
